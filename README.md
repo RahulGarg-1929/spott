@@ -1,3 +1,5 @@
+Vercel URL: spott-beta.vercel.app
+
 # Spott – Event Discovery & Management Platform
 
 Spott is a full-stack web application designed to simplify event discovery, creation, and management. The platform connects event organizers and attendees through a centralized system that supports secure authentication, personalized event discovery, real-time data handling, and subscription-based feature access.
@@ -99,3 +101,4 @@ Subscriptions are managed securely using Clerk.
 ## 📄 License
 
 This project is developed for academic purposes.
+
