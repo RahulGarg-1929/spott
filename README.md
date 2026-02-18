@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Spott – Event Discovery & Management Platform
 
-## Getting Started
+Spott is a full-stack web application designed to simplify event discovery, creation, and management. The platform connects event organizers and attendees through a centralized system that supports secure authentication, personalized event discovery, real-time data handling, and subscription-based feature access.
 
-First, run the development server:
+The project is developed as part of a Project-Based Learning (PBL) initiative and demonstrates the use of modern web technologies and serverless backend architecture.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Features
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- Secure user authentication and session management  
+- User onboarding with interests and location personalization  
+- Event creation and management for organizers  
+- Real-time event search and discovery  
+- Ticket registration and attendee management  
+- Subscription-based feature control (Free & Pro plans)  
+- Responsive and modern user interface  
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🛠️ Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+### Frontend
+- Next.js (App Router)
+- React
+- Tailwind CSS
+- shadcn/ui components
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Backend
+- Convex (serverless real-time backend)
+- Convex Database & Search Indexes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Authentication & Subscriptions
+- Clerk Authentication
+- Clerk Pricing & Subscription Management
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🧩 System Architecture
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Spott follows a modular architecture where the frontend, authentication service, and backend are tightly integrated:
+
+- Clerk handles authentication, user identity, and subscriptions  
+- Convex manages database storage, queries, mutations, and real-time updates  
+- Next.js handles routing, UI rendering, and client-side logic  
+
+This architecture ensures scalability, security, and real-time synchronization across the application.
+
+---
+
+## 📂 Database Schema Overview
+
+- **Users**: Stores authentication details, onboarding data, and subscription status  
+- **Events**: Stores event details such as category, date, location, and organizer  
+- **Registrations**: Stores ticket and attendee information  
+
+---
+
+## 🔍 Event Discovery & Search
+
+Spott provides real-time event search using backend search indexing. Users can discover upcoming events based on search queries, location, and interests, ensuring fast and relevant results.
+
+---
+
+## 💳 Subscription Model
+
+The platform implements a Free and Pro subscription model:
+- Free users have limited access to event creation  
+- Pro users can unlock premium features and unlimited event creation  
+
+Subscriptions are managed securely using Clerk.
+
+---
+
+## 📈 Future Scope
+
+- AI-based event recommendations  
+- Online payment gateway integration for paid events  
+- Organizer analytics dashboard  
+- Mobile application support  
+- Admin moderation and management tools  
+
+---
+
+## 👨‍🎓 Academic Details
+
+**Project Type:** Project-Based Learning (PBL)  
+**Course:** Computer Science & Engineering  
+**Institution:** Manipal University Jaipur  
+
+### Team
+- **Rahul Garg** (23FE10CSE00065)
+
+### Project Guide
+- **Mrs. Soni Gupta**
+
+---
+
+## 📄 License
+
+This project is developed for academic purposes.
