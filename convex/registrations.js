@@ -172,7 +172,22 @@ export const getEventRegistrations = query({
 export const checkInAttendee = mutation({
   args: { qrCode: v.string() },
   handler: async (ctx, args) => {
-    const user = await ctx.runQuery(internal.users.getCurrentUser);
+    // Verify the organizer is authenticated
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("You must be logged in to check in attendees");
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_token", (q) =>
+        q.eq("tokenIdentifier", identity.tokenIdentifier)
+      )
+      .unique();
+
+    if (!user) {
+      throw new Error("User not found. Please sign in again.");
+    }
 
     const registration = await ctx.db
       .query("registrations")
@@ -180,24 +195,33 @@ export const checkInAttendee = mutation({
       .unique();
 
     if (!registration) {
-      throw new Error("Invalid QR code");
+      return {
+        success: false,
+        message: "Invalid QR code — no matching registration found",
+      };
     }
 
     const event = await ctx.db.get(registration.eventId);
     if (!event) {
-      throw new Error("Event not found");
+      return {
+        success: false,
+        message: "Event not found for this registration",
+      };
     }
 
     // Check if user is the organizer
     if (event.organizerId !== user._id) {
-      throw new Error("You are not authorized to check in attendees");
+      return {
+        success: false,
+        message: "You are not the organizer of this event",
+      };
     }
 
     // Check if already checked in
     if (registration.checkedIn) {
       return {
         success: false,
-        message: "Already checked in",
+        message: `${registration.attendeeName} is already checked in`,
         registration,
       };
     }
@@ -210,7 +234,7 @@ export const checkInAttendee = mutation({
 
     return {
       success: true,
-      message: "Check-in successful",
+      message: `${registration.attendeeName} checked in successfully!`,
       registration: {
         ...registration,
         checkedIn: true,

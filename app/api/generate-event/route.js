@@ -1,7 +1,4 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextResponse } from "next/server";
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 export async function POST(req) {
   try {
@@ -14,7 +11,13 @@ export async function POST(req) {
       );
     }
 
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const apiKey = process.env.GROQ_API_KEY;
+    if (!apiKey) {
+      return NextResponse.json(
+        { error: "Groq API key is not configured" },
+        { status: 500 }
+      );
+    }
 
     const systemPrompt = `You are an event planning assistant. Generate event details based on the user's description.
 
@@ -29,21 +32,42 @@ Return this exact JSON structure:
   "suggestedTicketType": "free"
 }
 
-User's event idea: ${prompt}
-
 Rules:
 - Return ONLY the JSON object, no markdown, no explanation
 - All string values must be on a single line with no line breaks
 - Use spaces instead of \\n or line breaks in description
 - Make title catchy and under 80 characters
 - Description should be 2-3 sentences, informative, single paragraph
-- suggestedTicketType should be either "free" or "paid"
-`;
+- suggestedTicketType should be either "free" or "paid"`;
 
-    const result = await model.generateContent(systemPrompt);
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: prompt },
+        ],
+        temperature: 0.7,
+        max_tokens: 500,
+      }),
+    });
 
-    const response = await result.response;
-    const text = response.text();
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Groq API error:", errorData);
+      return NextResponse.json(
+        { error: "AI service error: " + (errorData.error?.message || "Unknown error") },
+        { status: response.status }
+      );
+    }
+
+    const data = await response.json();
+    const text = data.choices[0]?.message?.content || "";
 
     // Clean the response (remove markdown code blocks if present)
     let cleanedText = text.trim();
@@ -57,13 +81,13 @@ Rules:
 
     console.log(cleanedText);
 
-    const eventData = JSON.parse(cleanedText);
+    const eventData = JSON.parse(cleanedText.trim());
 
     return NextResponse.json(eventData);
   } catch (error) {
     console.error("Error generating event:", error);
     return NextResponse.json(
-      { error: "Failed to generate event" + error.message },
+      { error: "Failed to generate event: " + error.message },
       { status: 500 }
     );
   }

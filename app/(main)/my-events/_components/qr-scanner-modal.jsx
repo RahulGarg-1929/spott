@@ -18,6 +18,7 @@ export default function QRScannerModal({ isOpen, onClose }) {
   const [scannerReady, setScannerReady] = useState(false);
   const [error, setError] = useState(null);
   const scannerRef = useRef(null);
+  const isRunningRef = useRef(false);
 
   const { mutate: checkInAttendee } = useConvexMutation(
     api.registrations.checkInAttendee
@@ -86,13 +87,19 @@ export default function QRScannerModal({ isOpen, onClose }) {
             qrbox: { width: 230, height: 230 },
           },
           (decodedText) => {
-            qr.stop().catch(() => { });
+            if (isRunningRef.current) {
+              isRunningRef.current = false;
+              qr.stop().catch(() => { });
+            }
             handleCheckIn(decodedText);
           },
           () => { } // suppress per-frame scan errors
         );
 
-        if (!cancelled) setScannerReady(true);
+        if (!cancelled) {
+          isRunningRef.current = true;
+          setScannerReady(true);
+        }
       } catch (err) {
         if (!cancelled) {
           console.error("QR Scanner error:", err);
@@ -105,7 +112,8 @@ export default function QRScannerModal({ isOpen, onClose }) {
 
     return () => {
       cancelled = true;
-      if (scannerRef.current) {
+      if (scannerRef.current && isRunningRef.current) {
+        isRunningRef.current = false;
         scannerRef.current.stop().catch(() => { });
         scannerRef.current = null;
       }
