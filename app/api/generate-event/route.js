@@ -12,6 +12,7 @@ export async function POST(req) {
     }
 
     const apiKey = process.env.GROQ_API_KEY;
+    console.log("GROQ_API_KEY exists:", !!apiKey, "length:", apiKey?.length || 0);
     if (!apiKey) {
       return NextResponse.json(
         { error: "Groq API key is not configured" },
