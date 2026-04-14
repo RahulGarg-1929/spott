@@ -7,9 +7,9 @@ Built with **Next.js, Convex, Clerk, and Tailwind**, Spott delivers a fast, scal
 
 ---
 
-# ✨ Features
+#  Features
 
-## 🎟️ Event Management
+##  Event Management
 
 * Create and manage events
 * Free & Paid events support
@@ -17,40 +17,40 @@ Built with **Next.js, Convex, Clerk, and Tailwind**, Spott delivers a fast, scal
 * Custom themes (Pro feature)
 * Event capacity management
 
-## 🔍 Smart Event Discovery
+##  Smart Event Discovery
 
 * Search events instantly
 * Location-based filtering (State + City)
 * Category-based browsing
 * Upcoming event recommendations
 
-## 👤 User Authentication
+##  User Authentication
 
 * Secure authentication using Clerk
 * Automatic user onboarding
 * Personalized event recommendations
 
-## 🎫 Ticketing System
+##  Ticketing System
 
 * One-click event registration
 * Unique QR code generation
 * Ticket management dashboard
 * Cancel registrations
 
-## 📊 Organizer Dashboard
+##  Organizer Dashboard
 
 * Registration analytics
 * Check-in tracking
 * Revenue tracking (Paid events)
 * Attendance statistics
 
-## 📱 QR Code Check-In
+##  QR Code Check-In
 
 * Scan attendee tickets
 * Real-time check-in updates
 * Prevent duplicate entry
 
-## 💎 Pro Features
+##  Pro Features
 
 * Unlimited event creation
 * Custom theme colors
@@ -59,7 +59,7 @@ Built with **Next.js, Convex, Clerk, and Tailwind**, Spott delivers a fast, scal
 
 ---
 
-# 🛠️ Tech Stack
+#  Tech Stack
 
 ## Frontend
 
@@ -85,7 +85,7 @@ Built with **Next.js, Convex, Clerk, and Tailwind**, Spott delivers a fast, scal
 
 ---
 
-# 🏗️ Architecture
+#  Architecture
 
 ```
 Next.js App Router
@@ -100,7 +100,7 @@ Next.js App Router
 
 ---
 
-# 📂 Project Structure
+#  Project Structure
 
 ```
 app/
@@ -113,7 +113,7 @@ public/
 
 ---
 
-# 🚀 Getting Started
+#  Getting Started
 
 ## 1. Clone the repository
 
@@ -152,7 +152,7 @@ http://localhost:3000
 
 ---
 
-# 🔐 Environment Variables
+#  Environment Variables
 
 | Variable                          | Description        |
 | --------------------------------- | ------------------ |
@@ -162,19 +162,9 @@ http://localhost:3000
 
 ---
 
-# 📸 Screenshots
 
-* Landing Page
-* Event Creation
-* Explore Page
-* Dashboard
-* QR Check-In
 
-(You can add screenshots here)
-
----
-
-# 🎯 Use Cases
+#  Use Cases
 
 * College Events
 * Tech Meetups
@@ -185,7 +175,7 @@ http://localhost:3000
 
 ---
 
-# 🌟 Key Highlights
+#  Key Highlights
 
 * Full-stack production-ready project
 * Clean architecture
@@ -195,7 +185,7 @@ http://localhost:3000
 
 ---
 
-# 👨‍💻 Author
+#  Author
 
 Rahul Garg
 
